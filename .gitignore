@@ -168,3 +168,12 @@ modules.xml
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+/.idea/.gitignore
+/.idea/codeception.xml
+/.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd
+/.idea/php.xml
+/.idea/phpspec.xml
+/.idea/phpunit.xml
+/.idea/symfony2.xml
+/.idea/commandlinetools/Symfony_3_10_25__11_31_AM.xml
+/.idea/vcs.xml
