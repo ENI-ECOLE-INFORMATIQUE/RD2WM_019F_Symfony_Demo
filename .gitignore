@@ -177,3 +177,19 @@ modules.xml
 /.idea/symfony2.xml
 /.idea/commandlinetools/Symfony_3_10_25__11_31_AM.xml
 /.idea/vcs.xml
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> symfony/asset-mapper ###
+/public/assets/
+/assets/vendor/
+###< symfony/asset-mapper ###
+/.idea/php-test-framework.xml

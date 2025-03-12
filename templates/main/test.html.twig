@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{%  block body %}
+   <h1>Test</h1>
+   <!--Ceci est un commentaire en HTML et je le vois dans le navigateur-->
+   <p>Je vais faire un test !</p>
+    {# Crée une variable #}
+    {% set name = 'Philippe' %}
+    <p>Bonjour {{ name }}!</p>
+   <p>Bonjour {{ name | upper}}!</p>
+
+   <h2>{{ name | length }}</h2>
+
+    {# Crée une variable sous forme de tableau #}
+    {% set names = ['Philippe', 'Pierre', 'Paul', 'Jacques', 'Jacqueline','Lucie','Huguette'] %}
+    {% for nom in names %}
+        <div style="color:red">{{ nom }}</div>
+    {% endfor %}
+
+    {% set colors= ['red','green','blue','purple'] %}
+   <p>Nombre de couleurs : {{ colors | length }}</p>
+   <p>{{ colors | join('/ ') }}</p>
+    {% for color in colors %}
+        <div style="color:{{ color }}">{{ loop.index }} - {{ color }}</div>
+    {% endfor %}
+
+   {% for key,value in colors %}
+       <div style="color:{{ key }}">{{ loop.index }} - {{ key }} - {{ value }}</div>
+   {% endfor %}
+
+    {# Un Objet #}
+    {% set book = {
+        title: 'Le Petit Prince',
+        author: 'Saint-Exupéry',
+        year: 1943
+    }
+    %}
+
+    <p>{{ book.title }} par {{ book.author }} ({{ book.year }})</p>
+    <div>
+        {% for key, value in book %}
+            <p>{{ key }} : {{ value }}</p>
+        {% endfor %}
+    </div>
+<p>{{ "+1 year"|date('Y') }}</p>
+<h2>Affichage des variables depuis le controller MainController.php</h2>
+<p>{{ mySerie.title | raw}} {{ autreVar }}</p>
+
+    {{ scriptjs  }}
+{% endblock %}
+
+{% block title  %}
+    {{ parent() }} | Test
+{% endblock %}

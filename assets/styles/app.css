@@ -1,0 +1,15 @@
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: skyblue;
+}
+
+main{
+    flex:1;
+    padding: 15px;
+}
+footer{
+    background-color: #fff;
+    height: 2em;
+}
