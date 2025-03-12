@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Course;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,6 +33,34 @@ class CourseController extends AbstractController
         //dd($request);
         dump($request);
         //TODO création du cours
+        return $this->render('course/create.html.twig');
+    }
+
+    #[Route('/demo', name: 'demo',methods: ['GET'])]
+    public function demo(EntityManagerInterface $em ): Response
+    {
+       //Créer une instance de l'entité
+        $course = new Course();
+        //hydrater toutes les propriétés
+        $course->setName('Symfony');
+        $course->setContent('Le développement web côté serveur (avec Symfony)');
+        $course->setDuration(10);
+        $course->setDateCreated(new \DateTimeImmutable());
+        $course->setPublished(true);
+
+        //Enregistrer l'objet en BD
+        $em->persist($course);
+        dump($course);
+
+        //Je modifie l'objet cours
+        $course->setName('PHP');
+        $em->flush();
+        dump($course);
+
+        //Suppression de l'objet
+        $em->remove($course);
+        $em->flush();
+
         return $this->render('course/create.html.twig');
     }
 
