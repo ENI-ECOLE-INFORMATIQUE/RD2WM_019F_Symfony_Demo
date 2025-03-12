@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Course;
+use App\Repository\CourseRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,10 +15,11 @@ use Symfony\Component\Routing\Attribute\Route;
 class CourseController extends AbstractController
 {
     #[Route('/', name: 'list',methods: ['GET'])]
-    public function list(): Response
+    public function list(CourseRepository $courseRepository): Response
     {
-        //TODO Récupére tous les cours en BDD
-        return $this->render('course/list.html.twig');
+        //Récupére tous les cours en BDD
+        $courses = $courseRepository->findAll();
+        return $this->render('course/list.html.twig',['courses'=>$courses]);
     }
 
     #[Route('/{id}', name: 'show',requirements: ['id'=>'\d+'],methods: ['GET'])]
