@@ -19,7 +19,8 @@ class CourseController extends AbstractController
     {
         //Récupére tous les cours en BDD
         //$courses = $courseRepository->findAll();
-        $courses = $courseRepository->findBy([],['name'=>'DESC'],5);
+       // $courses = $courseRepository->findBy([],['name'=>'DESC'],5);
+        $courses = $courseRepository->findLastCourses(8);
         return $this->render('course/list.html.twig',['courses'=>$courses]);
     }
 
