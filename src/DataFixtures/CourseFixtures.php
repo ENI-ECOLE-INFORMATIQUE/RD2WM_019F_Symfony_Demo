@@ -38,8 +38,26 @@ class CourseFixtures extends Fixture
         $course->setPublished(true);
         $manager->persist($course);
 
+        //On va paramétrer faker pour qu'il utilise des datas en français.
+        $faker = \Faker\Factory::create('fr_FR');
+
         //Création de 30 Cours Supplémentaire
         for($i=1;$i<=30;$i++){
+            $course = new Course();
+            $course->setName($faker->word());
+            $course->setContent($faker->realText);
+            $course->setDuration(mt_rand(1,10));
+            $dateCreated=$faker->dateTimeBetween('-2 months','now');
+            $course->setDateCreated(\DateTimeImmutable::createFromMutable($dateCreated));
+            $dateModified = $faker->dateTimeBetween($course->getDateCreated()->format('Y-m-d'),'now');
+            $course->setDateModified(\DateTimeImmutable::createFromMutable($dateModified));
+            $course->setPublished(false);
+            $manager->persist($course);
+        }
+
+
+        //Création de 30 Cours Supplémentaire
+/*        for($i=1;$i<=30;$i++){
             $course = new Course();
             $course->setName("Cours $i");
             $course->setContent("Description du cours $i");
@@ -47,7 +65,7 @@ class CourseFixtures extends Fixture
             $course->setDateCreated(new \DateTimeImmutable());
             $course->setPublished(false);
             $manager->persist($course);
-        }
+        }*/
 
         $manager->flush();
     }
