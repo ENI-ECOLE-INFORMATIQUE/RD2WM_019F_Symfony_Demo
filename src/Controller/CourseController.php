@@ -18,15 +18,21 @@ class CourseController extends AbstractController
     public function list(CourseRepository $courseRepository): Response
     {
         //Récupére tous les cours en BDD
-        $courses = $courseRepository->findAll();
+        //$courses = $courseRepository->findAll();
+        $courses = $courseRepository->findBy([],['name'=>'DESC'],5);
         return $this->render('course/list.html.twig',['courses'=>$courses]);
     }
 
     #[Route('/{id}', name: 'show',requirements: ['id'=>'\d+'],methods: ['GET'])]
-    public function show(int $id): Response
+    //public function show(int $id, CourseRepository $courseRepository): Response
+    public function show(Course $course, CourseRepository $courseRepository): Response
     {
-        //TODO Récupére le cours en BDD en fonction de son id
-        return $this->render('course/show.html.twig');
+        //Récupére le cours en BDD en fonction de son id
+        /*$course = $courseRepository->find($id);
+        if(!$course){
+            throw $this->createNotFoundException('Cours inconnu');
+        }*/
+        return $this->render('course/show.html.twig',['course'=>$course]);
     }
 
     #[Route('/ajouter', name: 'create',methods: ['GET','POST'])]

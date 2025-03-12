@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-Le titre du cours | {{ parent() }}
+{{ course.name }} | {{ parent() }}
 {% endblock %}
 
 {% block body %}
-    <h1>Le titre du cours</h1>
-    {# todo: Afficher le détail du cours. #}
+    <h1>{{ course.name }}</h1>
+    <p>{{ course.content }}</p>
+    <p>Durée (jours): {{ course.duration }}</p>
+    <p>Date création: {{ course.dateCreated | date('d/m/Y') }}</p>
+    <p>Publiée: {{ course.published ? "Oui":"Non" }}</p>
 {% endblock %}
 
