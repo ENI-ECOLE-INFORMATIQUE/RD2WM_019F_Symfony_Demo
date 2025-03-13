@@ -7,7 +7,13 @@ Créer un cours | {{ parent() }}
 {% block body %}
 <h1>Créer un cours</h1>
     <div>
-        {# todo: Afficher le formulaire #}
+        {# Afficher le formulaire #}
+        {#{{ form(courseForm) }}#}
+
+        {{ form_start(courseForm) }}
+        {{ form_widget(courseForm) }}
+        <button>Ajouter</button>
+        {{ form_end(courseForm) }}
     </div>
 {% endblock %}
 

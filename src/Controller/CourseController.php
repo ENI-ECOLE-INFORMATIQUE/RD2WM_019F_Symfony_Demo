@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Course;
+use App\Form\CourseType;
 use App\Repository\CourseRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -39,10 +40,16 @@ class CourseController extends AbstractController
     #[Route('/ajouter', name: 'create',methods: ['GET','POST'])]
     public function create(Request $request): Response
     {
+        $course = new Course();
+        $courseForm = $this->createForm(CourseType::class,$course);
+        //TODO : traiter le formulaire
         //dd($request);
-        dump($request);
+        //dump($request);
         //TODO création du cours
-        return $this->render('course/create.html.twig');
+        return $this->render('course/create.html.twig',
+            [
+                'courseForm'=>$courseForm
+            ]);
     }
 
     #[Route('/demo', name: 'demo',methods: ['GET'])]
