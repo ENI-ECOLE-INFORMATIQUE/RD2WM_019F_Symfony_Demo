@@ -44,7 +44,7 @@ class CourseController extends AbstractController
         $courseForm = $this->createForm(CourseType::class,$course);
         //Traiter le formulaire
         $courseForm->handleRequest($request);
-        if($courseForm->isSubmitted()){
+        if($courseForm->isSubmitted() && $courseForm->isValid()){
             $em->persist($course);
             $em->flush();
             $this->addFlash('success','Le cours a été ajouté');
@@ -88,9 +88,19 @@ class CourseController extends AbstractController
     }
 
     #[Route('/{id}/modifier', name: 'edit',requirements: ['id'=>'\d+'], methods: ['GET','POST'])]
-    public function edit(int $id): Response
+    public function edit(Course $course,Request $request,EntityManagerInterface $em): Response
     {
-        //TODO Rechercher le cours dans la bdd d'apres l'id pour pouvoir le modifier
-        return $this->render('course/edit.html.twig');
+        //Rechercher le cours dans la bdd d'apres l'id pour pouvoir le modifier
+        $courseForm = $this->createForm(CourseType::class,$course);
+        //Traiter le formulaire
+        $courseForm->handleRequest($request);
+        if($courseForm->isSubmitted() && $courseForm->isValid()){
+            //Le persist n'est pas nécessaire car Doctrine connait deja l'objet.
+            $course->setDateModified(new \DateTimeImmutable());
+            $em->flush();
+            $this->addFlash('success','Le cours a été modifié !');
+            return $this->redirectToRoute('cours_show',['id'=>$course->getId()]);
+        }
+        return $this->render('course/edit.html.twig',['courseForm'=>$courseForm]);
     }
 }

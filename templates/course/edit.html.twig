@@ -6,6 +6,10 @@
 
 {% block body %}
     <h1>Modifier un cours</h1>
-    {# todo: Afficher le formulaire #}
+    {#  Afficher le formulaire #}
+    {{ form_start(courseForm) }}
+    {{ form_widget(courseForm) }}
+    <button class="btn btn-primary btn-sm">Modifier</button>
+    {{ form_end(courseForm) }}
 {% endblock %}
 

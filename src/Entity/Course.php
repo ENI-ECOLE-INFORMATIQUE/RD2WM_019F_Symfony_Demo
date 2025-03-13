@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CourseRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CourseRepository::class)]
 #[ORM\Table(name:'cours')]
@@ -16,12 +17,16 @@ class Course
     private ?int $id = null;
 
     #[ORM\Column(name:'libelle',length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min:2, max:255,minMessage: 'Le titre doit contenir 2 caractères minimum')]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $content = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
+    #[Assert\GreaterThan(0)]
+    #[Assert\NotBlank]
     private ?int $duration = null;
 
     #[ORM\Column(options: ['default' => false])]
