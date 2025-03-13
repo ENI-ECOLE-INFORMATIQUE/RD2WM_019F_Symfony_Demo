@@ -38,11 +38,18 @@ class CourseController extends AbstractController
     }
 
     #[Route('/ajouter', name: 'create',methods: ['GET','POST'])]
-    public function create(Request $request): Response
+    public function create(Request $request, EntityManagerInterface $em): Response
     {
         $course = new Course();
         $courseForm = $this->createForm(CourseType::class,$course);
-        //TODO : traiter le formulaire
+        //Traiter le formulaire
+        $courseForm->handleRequest($request);
+        if($courseForm->isSubmitted()){
+            $em->persist($course);
+            $em->flush();
+            $this->addFlash('success','Le cours a été ajouté');
+            return $this->redirectToRoute('cours_show',['id'=>$course->getId()]);
+        }
         //dd($request);
         //dump($request);
         //TODO création du cours
